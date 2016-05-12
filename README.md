@@ -17,4 +17,4 @@ Once the vertical speed reaches -0.1m/s the throttle is killed, RCS disabled and
 
 Result:
 If used with assumptions in mind, this script should perform near perfect hoverslam landings, resulting
-in an extremely efficient (~210m/s delta v) and also look pretty damn cool.
+in an extremely efficient landing (~210m/s delta v) which also looks pretty damn cool.
