@@ -5,7 +5,7 @@ Assumptions:
 * Thrust to weight ratio is between 2 and 8
 * You have airbrakes fitted to the vehicle
 * You have landing legs fitted to the vehicle
-* You have sufficient controls to orient the vehicle during descent
+* You have sufficient controls (RCS, fins, etc) to orient the vehicle during descent
 * You have changed the radarOffset (the alt:radar reading when landed on the ground)
 
 Use:
