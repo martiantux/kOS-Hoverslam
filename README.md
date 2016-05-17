@@ -1,23 +1,28 @@
 # KOS-Hoverslam
 A SpaceX style "hoverslam" script for the kOS mod for Kerbal Space Program
 
-Assumptions: 
-* Thrust to weight ratio is between 2 and 8
-* You have airbrakes fitted to the vehicle
-* You have landing legs fitted to the vehicle
-* You have sufficient controls (RCS, fins, etc) to orient the vehicle during descent
-* You have changed the radarOffset (the alt:radar reading when landed on the ground)
+Purpose:
+This script is designed to perform "hoverslam" maneuvers in which the engine is fired at just the right
+time that the velocity and altitude reach 0 at the same time. That is, the vehicle will "stop" right as
+it reaches the ground. To avoid a LOT of complicated calculations this script does a more rough estimate
+of when to start the burn and then makes adjustments by varing the throttle. In testing I have only seen
+the throttle as low as 57.7% which was with a thrust to weight ratio of 1.3, essentially the worst case
+for this sort of maneuver. Testing at the other end with a thrust to weight ratio of 10.6 saw the throttle
+only decrease to 86.5% and a more realistic test of an actual first stage landing with a TWR of 6.5 had
+the throttle drop to 79.5 at it's lowest. The required delta v varied between 180 and 220m/s providing
+considerably fuel efficient landings regardless of TWR.
 
-Use:
-Run this script at any point, it will activate once the craft is falling faster than 10m/s
-locking surface retrograde and deploying airbrakes to kill horizontal velocity and reduce entry speed.
-Once under 2km from terrain a burn will begin at the point where the time until impact and the time
-required to stop are the same, if the time required to stop changes the throttle will switch between 40% and 100%.
-Once the vertical speed reaches -0.1m/s the throttle is killed, RCS disabled and the script ends.
-
-Result:
-If used with assumptions in mind, this script should perform near perfect hoverslam landings, resulting
-in an extremely efficient landing (~210m/s delta v) which also looks pretty damn cool.
+Notes:
+You MUST change the "radarOffset" variable within the script, this should be set to your vehicles alt:radar
+value when landed on its gear. I have tested this script with TWRs between 1.3 and 10.6 so cannot guarantee
+how it will work outside that range. I have tested without airbrakes and it seems to still work normally
+however if you are coming in at crazy speeds (directly downward from 200km or something) it may burn earlier
+than it needs to as it doesn't account for the huge amount of drag you will encounter, chances are it will
+still work but will need to reduce the throttle a LOT more than normal. Finally this was built for and tested
+on Kerbin, if your trajectory is mostly straight down it will likely work fine without atmosphere as it
+doesn't consider drag anyway.
 
 Example:
-Here is a video demonstrating the script performing a hoverslam well enough to land an 18 meter tall 20 tonne stage on its engine. https://youtu.be/gyoqlJt9f00
+Here is a video demonstrating the script performing a hoverslam well enough to land an 18 meter tall 20
+tonne stage on its engine. https://youtu.be/gyoqlJt9f00 [This was using an old version of the script and
+will be updated soon]
