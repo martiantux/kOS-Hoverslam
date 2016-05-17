@@ -1,42 +1,24 @@
-// Hoverslam script by Bradley Hammond
-
 clearscreen.
-set radarOffset to 2.3923. // the reading of alt:radar when landed
-lock realAltitude to alt:radar - radarOffset.
-lock g to constant:g * body:mass / (body:radius + ship:altitude)^2.
-lock impactTime to realAltitude / abs(ship:verticalspeed).
-lock maxDecel to (ship:availablethrust / ship:mass) - g.
-lock stopTime to abs(ship:verticalspeed) / maxDecel.
+set radarOffset to 9.814.					// The value of alt:radar when landed (on gear)
+lock trueRadar to alt:radar - radarOffset.			// Offset radar to get distance from gear to ground
+lock g to constant:g * body:mass / body:radius^2.		// Gravity (m/s^2)
+lock maxDecel to (ship:availablethrust / ship:mass) - g.	// Maximum deceleration possible (m/s^2)
+lock stopDist to ship:verticalspeed^2 / (2 * maxDecel).		// The distance the burn will require
+lock stopTime to abs(ship:verticalspeed) / maxDecel.		// The time the burn will require
+lock idealThrottle to stopDist / trueRadar.			// Throttle required for perfect hoverslam
 
-set runMode to 1.
-set modeStatus to "Waiting".
+WAIT UNTIL ship:verticalspeed < -1.
+	print "Preparing for hoverslam...".
+	rcs on.
+	brakes on.
+	lock steering to srfretrograde.
+	when trueRadar < 1000 then {gear on.}
 
-until runMode = 0 {
-	if runMode = 1 and ship:verticalspeed < -10 {
-		set modeStatus to "Free-fall".
-		lock steering to srfretrograde.
-		brakes on.
-		
-		if impactTime < stopTime and realAltitude < 2000 {
-			set runMode to 2.
-			set modeStatus to "Hoverslam".
-			gear on.
-		}
-	}
-	if runMode = 2 {
-		if impactTime < stopTime {
-			lock throttle to 1.
-		}
-		else {
-			lock throttle to 0.4.
-		}
-		if ship:verticalspeed > -0.1 {
-			set runMode to 0.
-			set ship:control:pilotmainthrottle to 0.
-			rcs off.
-		}
-	}
-	
-	print "Altitude: " + realAltitude at (2,5).
-	print "Status: " + modeStatus at (2,6).
-}
+WAIT UNTIL trueRadar < stopDist.
+	print "Performing hoverslam".
+	lock throttle to idealThrottle.
+
+WAIT UNTIL ship:verticalspeed > -0.01.
+	print "Hoverslam completed".
+	set ship:control:pilotmainthrottle to 0.
+	rcs off.
