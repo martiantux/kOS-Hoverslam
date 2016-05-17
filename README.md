@@ -23,6 +23,4 @@ on Kerbin, if your trajectory is mostly straight down it will likely work fine w
 doesn't consider drag anyway.
 
 Example:
-Here is a video demonstrating the script performing a hoverslam well enough to land an 18 meter tall 20
-tonne stage on its engine. https://youtu.be/gyoqlJt9f00 [This was using an old version of the script and
-will be updated soon]
+Here is a video demonstrating the script performing a hoverslam well enough to land on the engine bell, even with the extreme deceleration the landing is precise enough to not tip or explode: https://youtu.be/nYz5GrC2BIM
