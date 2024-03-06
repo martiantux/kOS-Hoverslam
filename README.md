@@ -21,6 +21,3 @@ than it needs to as it doesn't account for the huge amount of drag you will enco
 still work but will need to reduce the throttle a LOT more than normal. Finally this was built for and tested
 on Kerbin, if your trajectory is mostly straight down it will likely work fine without atmosphere as it
 doesn't consider drag anyway.
-
-Example:
-Here is a video demonstrating the script performing a hoverslam well enough to land on the engine bell, even with the extreme deceleration the landing is precise enough to not tip or explode: https://youtu.be/nYz5GrC2BIM
